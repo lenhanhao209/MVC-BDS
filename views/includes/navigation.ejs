@@ -1,0 +1,221 @@
+<div class="backdrop"></div>
+<header class="main-header">
+    <button id="side-menu-toggle">Menu</button>
+    <nav class="main-header__nav">
+        <ul class="main-header__item-list">
+            <li class="main-header__item">
+                <a class="<%= path === '/' ? 'active' : '' %>" href="/">Trang
+                    chủ</a>
+            </li>
+            <!-- <li class="main-header__item dropdown-toggle"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                TP. Hồ Chí Minh
+            </li>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Quận 1</a></li>
+                <li><a class="dropdown-item" href="#">Quận 3</a></li>
+                <li><a class="dropdown-item" href="#">Quận 4</a></li>
+                <li><a class="dropdown-item" href="#">Quận 5</a></li>
+                <li><a class="dropdown-item" href="#">Quận 6</a></li>
+                <li><a class="dropdown-item" href="#">Quận 7</a></li>
+                <li><a class="dropdown-item" href="#">Quận 8</a></li>
+                <li><a class="dropdown-item" href="#">Quận 10</a></li>
+                <li><a class="dropdown-item" href="#">Quận 11</a></li>
+                <li><a class="dropdown-item" href="#">Quận 12</a></li>
+                <li><a class="dropdown-item" href="#">Quận Bình Thạnh</a></li>
+                <li><a class="dropdown-item" href="#">Quận Gò vấp</a></li>
+                <li><a class="dropdown-item" href="#">Quận Bình Tân</a></li>
+                <li><a class="dropdown-item" href="#">Quận Tân Bình</a></li>
+                <li><a class="dropdown-item" href="#">Quận Phú Nhuận</a></li>
+            </ul>
+            <li class="main-header__item dropdown-toggle"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                TP.Thủ Đức
+            </li>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Quận 2</a></li>
+                <li><a class="dropdown-item" href="#">Quận 9</a></li>
+                <li><a class="dropdown-item" href="#">Quận Thủ Đức</a></li>
+            </ul> -->
+            <li class="main-header__item">
+                <a class="<%= path === '/reccent' ? 'active' : '' %>"
+                    href="/reccent">BĐS vừa xem</a>
+            </li>
+            <% if (isAuthenticated) { %>
+                <li class="main-header__item">
+                    <a class="<%= path === '/user/add-product' ? 'active' : '' %>"
+                        href="/user/add-product">Thêm BĐS
+                    </a>
+                </li>
+                <li class="main-header__item">
+                    <a class="<%= path === '/user/products' ? 'active' : '' %>"
+                        href="/user/products">BĐS của bạn
+                    </a>
+                </li>
+                <% if (role==="manager" ) { %>
+                    <li class="main-header__item">
+                        <a class="<%= path === '/approve' ? 'active' : '' %>"
+                            href="/manager/approve">Phê chuẩn</a>
+                    </li>
+                    <% } %>
+                        <% } %>
+        </ul>
+        <ul class="main-header__item-list">
+            <% if (!isAuthenticated) { %>
+                <li class="main-header__item">
+                    <a class="<%= path === '/login' ? 'active' : '' %>"
+                        href="/login">Đăng nhập</a>
+                </li>
+                <li class="main-header__item">
+                    <a class="<%= path === '/signup' ? 'active' : '' %>"
+                        href="/signup">Đăng ký</a>
+                </li>
+                <% } else { %>
+                    <li class="main-header__item">
+                        <p class="active">Xin chào,
+                            <%= name %>!!!
+                        </p>
+
+                    </li>
+                    <li class="main-header__item">
+                        <form action="/logout" method="post">
+                            <input type="hidden" name="_csrf"
+                                value="<%= csrfToken %>">
+                            <button type="submit">Đăng xuất</button>
+                        </form>
+                    </li>
+                    <% } %>
+        </ul>
+    </nav>
+
+</header>
+<!-- <header class="main-header">
+    <nav class="main-header__nav">
+        <ul class="main-header__item-list">
+            <li class="main-header__item">
+            <li class="main-header__item dropdown-toggle"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                TP. Hồ Chí Minh
+            </li>
+            <select class="dropdown-menu">
+                <option>
+                    <a class="dropdown-item" href="#" name="Q1"
+                        onclick="filterProduct(this)" value="Quận 1">Quận 1</a>
+                </option>
+
+                <li><a class="dropdown-item" href="#" name="3">Quận 3</a></li>
+
+                <li><a class="dropdown-item" href="#" name="4">Quận 4</a>
+                </li>
+                <li><a class="dropdown-item" href="#" name="5">Quận 5</a>
+                </li>
+                <li><a class="dropdown-item" href="#" name="6">Quận 6</a>
+                </li>
+                <li><a class="dropdown-item" href="#" name="7">Quận 7</a>
+                </li>
+                <li><a class="dropdown-item" href="#" name="8">Quận 8</a>
+                </li>
+                <li><a class="dropdown-item" href="#" name="10">Quận 10</a>
+                </li>
+                <li><a class="dropdown-item" href="#" name="Quận 11">Quận 11</a>
+                </li>
+                <li><a class="dropdown-item" href="#" name="Quận 12">Quận 12</a>
+                </li>
+                <li><a class="dropdown-item" href="#"
+                        name="Quận Bình Thạnh">Quận Bình Thạnh</a></li>
+                <li><a class="dropdown-item" href="#" name="Quận Gò vấp">Quận Gò
+                        vấp</a></li>
+                <li><a class="dropdown-item" href="#" name="Quận Bình Tân">Quận
+                        Bình Tân</a></li>
+                <li><a class="dropdown-item" href="#" name="Quận Tân Bình">Quận
+                        Tân Bình</a></li>
+                <li><a class="dropdown-item" href="#" name="Quận Phú Nhuận">Quận
+                        Phú Nhuận</a></li>
+            </select>
+            <li class="main-header__item dropdown-toggle"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                TP.Thủ Đức
+            </li>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Quận 2</a></li>
+                <li><a class="dropdown-item" href="#">Quận 9</a></li>
+                <li><a class="dropdown-item" href="#">Quận Thủ Đức</a></li>
+            </ul>
+            </li>
+        </ul>
+    </nav>
+</header> -->
+
+<nav class="mobile-nav">
+    <ul class="mobile-nav__item-list">
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/' ? 'active' : '' %>" href="/">Trang
+                chủ</a>
+        </li>
+        <li class="mobile-nav__item dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            TP. Hồ Chí Minh
+        </li>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Quận 1</a></li>
+            <li><a class="dropdown-item" href="#">Quận 3</a></li>
+            <li><a class="dropdown-item" href="#">Quận 4</a></li>
+            <li><a class="dropdown-item" href="#">Quận 5</a></li>
+            <li><a class="dropdown-item" href="#">Quận 6</a></li>
+            <li><a class="dropdown-item" href="#">Quận 7</a></li>
+            <li><a class="dropdown-item" href="#">Quận 8</a></li>
+            <li><a class="dropdown-item" href="#">Quận 10</a></li>
+            <li><a class="dropdown-item" href="#">Quận 11</a></li>
+            <li><a class="dropdown-item" href="#">Quận 12</a></li>
+            <li><a class="dropdown-item" href="#">Quận Bình Thạnh</a></li>
+            <li><a class="dropdown-item" href="#">Quận Gò vấp</a></li>
+            <li><a class="dropdown-item" href="#">Quận Bình Tân</a></li>
+            <li><a class="dropdown-item" href="#">Quận Tân Bình</a></li>
+            <li><a class="dropdown-item" href="#">Quận Phú Nhuận</a></li>
+        </ul>
+        <li class="mobile-nav__item dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            TP.Thủ Đức
+        </li>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Quận 2</a></li>
+            <li><a class="dropdown-item" href="#">Quận 9</a></li>
+            <li><a class="dropdown-item" href="#">Quận Thủ Đức</a></li>
+        </ul>
+        <li class="mobile-nav__item">
+            <a class="<%= path === '/reccent' ? 'active' : '' %>"
+                href="/reccent">BĐS vừa xem</a>
+        </li>
+        <% if (isAuthenticated) { %>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/user/add-product' ? 'active' : '' %>"
+                    href="/user/add-product">Thêm BĐS
+                </a>
+            </li>
+            <li class="mobile-nav__item">
+                <a class="<%= path === '/user/products' ? 'active' : '' %>"
+                    href="/user/products">BĐS của bạn
+                </a>
+            </li>
+            <% } %>
+                <% if (!isAuthenticated) { %>
+                    <li class="mobile-nav__item">
+                        <a class="<%= path === '/login' ? 'active' : '' %>"
+                            href="/login">Login</a>
+                    </li>
+                    <li class="mobile-nav__item">
+                        <a class="<%= path === '/signup' ? 'active' : '' %>"
+                            href="/signup">Signup</a>
+                    </li>
+                    <% } else { %>
+                        <li class="mobile-nav__item">
+                            <form action="/logout" method="post">
+                                <input type="hidden" name="_csrf"
+                                    value="<%= csrfToken %>">
+                                <button type="submit">Logout</button>
+                            </form>
+                        </li>
+                        <% } %>
+    </ul>
+</nav>
+<script src="/js/filter.js"></script>

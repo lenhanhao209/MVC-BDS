@@ -1,0 +1,63 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main>
+                <% if (prods.length> 0) { %>
+                    <div class="grid">
+                        <% for (let product of prods) { %>
+                            <article class="card product-item">
+                                <header class="card__header">
+                                    <h1 class="product__name">
+                                        <%= product.name %>
+                                    </h1>
+                                </header>
+                                <div class="card__image">
+                                    <img src="/<%= product.imageUrl[0] %>"
+                                        alt="<%= product.name %>">
+                                </div>
+                                <div class="card__content">
+                                    <h3 class="product__price">
+                                        Price: <%= product.price %>
+                                    </h3>
+                                    <h5 class="product__area">
+                                        Acreage: <%= product.acreage %>
+                                    </h5>
+                                    <h5 class="product__address">
+                                        Address: <%= product.address %>
+                                    </h5>
+                                </div>
+                                <div class="card__actions">
+                                    <a href="/products/<%= product._id %>"
+                                        class="btn"><button type="button"
+                                            class="btn btn-success">Details</button></a>
+                                    <form style="text-align:center"
+                                        class="card__actions"
+                                        action="/manager/approve" method="POST">
+                                        <input type="hidden" name="_csrf"
+                                            value="<%=csrfToken %>" />
+                                        <input type="hidden" name="id"
+                                            value="<%= product._id %>" />
+                                        <button type="submit"
+                                            class="btn btn-success">Confirm</button></a>
+                                    </form>
+                                </div>
+
+                            </article>
+                            <% } %>
+                    </div>
+                    <div class="card__actions">
+                        <%- include('../includes/pagination.ejs', {currentPage:
+                            currentPage, nextPage: nextPage, previousPage:
+                            previousPage, lastPage: lastPage, hasNextPage:
+                            hasNextPage, hasPreviousPage: hasPreviousPage}) %>
+                            <% } else { %>
+                                <h1>No Products Found!</h1>
+                                <% } %>
+                    </div>
+
+            </main>
+            <%- include('../includes/end.ejs') %>

@@ -1,0 +1,55 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+            <main class="centered ">
+
+                <hr>
+                <div class="container">
+                    <% for (let i=0; i < product.imageUrl.length; i++) { %>
+                        <div class="mySlides">
+                            <div class="numbertext">
+                                <%= i + 1 %> / <%= product.imageUrl.length %>
+                            </div>
+                            <img src="/<%= product.imageUrl[i] %>"
+                                style="width:50%; height:400px">
+                        </div>
+                        <% } %>
+                            <a class="prev"
+                                onclick="plusSlides(-1)">&#10094;</a>
+                            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                            <div class="caption-container">
+                                <p id="caption"></p>
+                            </div>
+                            <div class="row">
+                                <% for (let i=0; i < product.imageUrl.length;
+                                    i++) { %>
+                                    <div class="column">
+                                        <img class="demo cursor"
+                                            src="/<%= product.imageUrl[i] %>"
+                                            style="width:100%;height:45px "
+                                            onclick="currentSlide(<%= i %>)"
+                                            alt="<%= product.name %>">
+                                    </div>
+                                    <% } %>
+                            </div>
+                </div>
+                <h2>
+                    Price: <%= product.price %>
+                </h2>
+                <h4>
+                    Acreage: <%= product.acreage %>
+                </h4>
+                <h4>
+                    Address: <%= product.address %>
+                </h4>
+                <h4>
+                    Contact: <%= user.tel %>
+                </h4>
+                <h4>
+                    <%= product.description %>
+                </h4>
+
+            </main>
+            <%- include('../includes/end.ejs') %>

@@ -1,0 +1,72 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/forms.css">
+    <link rel="stylesheet" href="/css/product.css">
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+
+            <main>
+                <% if (errorMessage) { %>
+                    <div class="user-message user-message--error">
+                        <%= errorMessage %>
+                    </div>
+                    <% } %>
+                        <form class="product-form"
+                            action="/user/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>"
+                            method="POST" enctype="multipart/form-data">
+                            <div class="form-control">
+                                <label for="name">Name</label>
+                                <input
+                                    class="<%= validationErrors.find(e => e.param === 'name') ? 'invalid' : '' %>"
+                                    type="text" name="name" id="name"
+                                    value="<% if (editing || hasError) { %><%= product.name %><% } %>">
+                            </div>
+                            <div class="form-control">
+                                <label for="address">Address</label>
+                                <input
+                                    class="<%= validationErrors.find(e => e.param === 'adress') ? 'invalid' : '' %>"
+                                    type="text" name="address" id="address"
+                                    value="<% if (editing || hasError) { %><%= product.address %><% } %>">
+                            </div>
+                            <div class="form-control">
+                                <label for="area">Acreage</label>
+                                <input
+                                    class="<%= validationErrors.find(e => e.param === 'acreage') ? 'invalid' : '' %>"
+                                    type="text" name="acreage" id="acreage"
+                                    value="<% if (editing || hasError) { %><%= product.acreage %><% } %>">
+                            </div>
+                            <div class="form-control">
+                                <label for="image">Image</label>
+                                <input type="file" name="image" id="image"
+                                    multiple>
+                            </div>
+                            <div class="form-control">
+                                <label for="price">Price</label>
+                                <input
+                                    class="<%= validationErrors.find(e => e.param === 'price') ? 'invalid' : '' %>"
+                                    type="text" name="price" id="price"
+                                    value="<% if (editing || hasError) { %><%= product.price %><% } %>">
+                            </div>
+                            <div class="form-control">
+                                <label for="description">Description</label>
+                                <textarea
+                                    class="<%= validationErrors.find(e => e.param === 'description') ? 'invalid' : '' %>"
+                                    name="description" id="description"
+                                    rows="5"><% if (editing || hasError) { %><%= product.description %><% } %></textarea>
+                            </div>
+                            <% if (editing) { %>
+                                <input type="hidden" value="<%= product._id %>"
+                                    name="productId">
+                                <% } %>
+
+                                    <input type="hidden" name="_csrf"
+                                        value="<%= csrfToken %>">
+                                    <button class="btn btn-success"
+                                        type="submit">
+                                        <% if (editing) { %>Update Product<% }
+                                                else { %>Add Product<% } %>
+                                    </button>
+                        </form>
+            </main>
+            <%- include('../includes/end.ejs') %>

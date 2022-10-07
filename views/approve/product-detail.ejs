@@ -1,0 +1,57 @@
+<%- include('../includes/head.ejs') %>
+    </head>
+
+    <body>
+        <%- include('../includes/navigation.ejs') %>
+            <main class="centered ">
+                <h1>
+                    <%= product.name %>
+                </h1>
+                <hr>
+                <div id="carouselExampleIndicators" class="carousel slide"
+                    data-bs-ride="true">
+                    <div class="carousel-indicators">
+
+                        <button type="button"
+                            data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide-to="0" class="active"
+                            aria-current="true" aria-label="Slide 1"></button>
+                        <% for (let i=1; i < product.imageUrl.length; i++) { %>
+                            <button type="button"
+                                data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide-to="<%= i %>"
+                                aria-label="Slide <%= i %>"></button>
+                            <% } %>
+
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/<%= product.imageUrl[0] %>"
+                                alt="<%= product.name %>">
+                        </div>
+                        <% for (let i=1; i < product.imageUrl.length; i++) { %>
+                            <div class="carousel-item">
+                                <img src="/<%= product.imageUrl[i] %>"
+                                    alt="<%= product.name %>">
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+                <h2>
+                    Price: <%= product.price %>
+                </h2>
+                <h4>
+                    Acreage: <%= product.acreage %>
+                </h4>
+                <h4>
+                    Address: <%= product.address %>
+                </h4>
+                <h4>
+                    Contact: <%= user.tel %>
+                </h4>
+                <h4>
+                    <%= product.description %>
+                </h4>
+
+            </main>
+            <%- include('../includes/end.ejs') %>
