@@ -6,11 +6,11 @@ if (typeof localStorage === "undefined" || localStorage === null) {
   const LocalStorage = require("node-localstorage").LocalStorage;
   localStorage = new LocalStorage("./scartch");
 }
-const recentProduct = localStorage.getItem("product")
-  ? JSON.parse(localStorage.getItem("product"))
-  : [];
 
 exports.getProduct = (req, res, next) => {
+  const recentProduct = localStorage.getItem("product")
+    ? JSON.parse(localStorage.getItem("product"))
+    : [];
   const prodId = req.params.productId;
   Product.findById(prodId)
     .then((product) => {
@@ -67,17 +67,19 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getRecent = (req, res, next) => {
-  console.log(recentProduct);
   const page = +req.query.page || 1;
+  let items = localStorage.getItem("product")
+    ? JSON.parse(localStorage.getItem("product"))
+    : [];
   res.render("shop/recent", {
-    prods: recentProduct,
+    prods: items,
     pageTitle: "Shop",
     path: "/recent",
     currentPage: page,
-    hasNextPage: ITEMS_PER_PAGE * page < recentProduct,
+    hasNextPage: ITEMS_PER_PAGE * page < items,
     hasPreviousPage: page > 1,
     nextPage: page + 1,
     previousPage: page - 1,
-    lastPage: Math.ceil(recentProduct / ITEMS_PER_PAGE),
+    lastPage: Math.ceil(items / ITEMS_PER_PAGE),
   });
 };
